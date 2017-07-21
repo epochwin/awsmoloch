@@ -1,0 +1,56 @@
+{
+    "variables": {
+      "aws_access_key_id": "{{env `AWS_ACCESS_KEY_ID`}}",
+      "aws_secret_access_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+      "packer_build_vpc_id": "{{env `PACKER_BUILD_VPC_ID`}}",
+      "packer_build_subnet_id": "{{env `PACKER_BUILD_SUBNET_ID`}}",
+      "box_name": "centos",
+      "version": "7",
+      "encrypted_volume_size": "100",
+      "ssh_username_var": "centos",
+      "region_var": "us-east-1",
+      "source_ami_var": "ami-ae7bfdb8"
+    },
+    "min_packer_version": "1.0.1",
+    "builders": [
+      {
+        "type": "amazon-ebs",
+        "ami_virtualization_type": "hvm",
+        "region": "{{user `region_var`}}",
+        "source_ami": "{{user `source_ami_var`}}",
+        "ssh_username": "{{user `ssh_username_var`}}",
+        "access_key": "{{user `aws_access_key_id`}}",
+        "secret_key": "{{user `aws_secret_access_key`}}",
+        "token": "{{user `aws_security_token`}}",
+        "vpc_id": "{{user `packer_build_vpc_id`}}",
+        "subnet_id": "{{user `packer_build_subnet_id`}}",
+        "ami_name": "{{user `box_name`}}-moloch-capture-encrypted {{user `version`}} {{timestamp}}",
+        "instance_type": "t2.xlarge",
+        "encrypt_boot": "true",
+        "launch_block_device_mappings": [
+          {
+            "device_name": "/dev/sda1",
+            "delete_on_termination": "true",
+            "volume_type": "gp2",
+            "volume_size": 25
+          }
+        ],
+        "ami_block_device_mappings": [
+          {
+           "device_name": "/dev/sda1",
+           "delete_on_termination": "true",
+           "volume_size": 25,
+           "volume_type": "gp2",
+           "encrypted": "true"
+          }
+        ]
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "execute_command": "echo 'packer' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+        "script": "scripts/capture_user_data.sh"
+      }
+    ]
+}
