@@ -14,6 +14,10 @@ variable "aws_key_name" {
   description = "SSH Key Name"
 }
 
+variable "private_key_path" {
+  description = "Path to Private SSH Key"
+}
+
 variable "pcap_s3_bucket" {
   description = "S3 Bucket for PCAP storage"
   default = "pcap_bucket"

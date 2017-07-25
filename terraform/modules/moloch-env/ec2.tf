@@ -26,7 +26,7 @@ resource "aws_instance" "viewer" {
       connection {
         type        = "ssh"
         user        = "centos"
-        private_key = "${file("~/Downloads/slapula.pem")}"
+        private_key = "${file("${var.private_key_path}")}"
       }
     }
 
@@ -61,7 +61,7 @@ resource "aws_instance" "capture" {
       connection {
         type        = "ssh"
         user        = "centos"
-        private_key = "${file("~/Downloads/slapula.pem")}"
+        private_key = "${file("${var.private_key_path}")}"
       }
     }
 

@@ -14,8 +14,9 @@ terragrunt {
   }
 }
 
-aws_region      = "us-east-1"
-aws_key_name    = "slapula"
-#pcap_s3_bucket  = ""
-capture_ami     = "ami-58451623"
-viewer_ami      = "ami-994516e2"
+aws_region        = "us-east-1"
+aws_key_name      = ""
+private_key_path  = ""
+pcap_s3_bucket    = ""
+capture_ami       = "ami-XXXXXXXX"
+viewer_ami        = "ami-XXXXXXXX"

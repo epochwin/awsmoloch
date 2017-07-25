@@ -22,7 +22,7 @@ To implement this configuration, you will need the latest versions of the follow
 # Creating the Infrastructure
 
 1. `cd terraform/stacks/moloch-env/`
-2. Adjust the `aws_region` and `aws_key_name` parameters in `terraform.tfvars` to your AWS environment  
+2. Adjust the `aws_region`, `aws_key_name`, `private_key_path`, and `pcap_s3_bucket` parameters in `terraform.tfvars` to your AWS environment  
 3. `terragrunt get`
 4. `terragrunt plan`
 5. `terragrunt apply`
