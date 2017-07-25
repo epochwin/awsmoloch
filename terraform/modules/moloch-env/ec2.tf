@@ -5,7 +5,7 @@ resource "aws_instance" "viewer" {
     key_name = "${var.aws_key_name}"
     subnet_id = "${aws_subnet.private.id}"
     private_ip = "${var.private_viewer_ip}"
-    vpc_security_group_ids = ["${aws_security_group.allow_all.id}"]
+    vpc_security_group_ids = ["${aws_security_group.allow_viewer.id}"]
     associate_public_ip_address = "true"
 
     provisioner "remote-exec" {
