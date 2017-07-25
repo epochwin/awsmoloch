@@ -1,4 +1,4 @@
-resource "aws_instance" "moloch" {
+resource "aws_instance" "viewer" {
     ami = "${var.viewer_ami}"
     availability_zone = "${var.aws_region}a"
     instance_type = "${var.moloch_instance_type}"
@@ -31,13 +31,13 @@ resource "aws_instance" "moloch" {
     }
 
     tags {
-      Name = "moloch_instance-${var.environment_name}"
+      Name = "moloch_viewer_${var.environment_name}"
       Environment = "${var.environment_name}"
       Role = "moloch"
     }
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "capture" {
     ami = "${var.capture_ami}"
     availability_zone = "${var.aws_region}a"
     instance_type = "${var.web_instance_type}"
@@ -66,7 +66,7 @@ resource "aws_instance" "web" {
     }
 
     tags {
-      Name = "web_instance-${var.environment_name}"
+      Name = "moloch_capture_${var.environment_name}"
       Environment = "${var.environment_name}"
       Role = "web"
     }

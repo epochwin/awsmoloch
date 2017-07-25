@@ -2,13 +2,21 @@
 # Stores current account and user data
 data "aws_caller_identity" "current" {}
 
+resource "random_id" "bucket_uuid" {
+  byte_length = 8
+}
+
 variable "aws_region" {
   description = "AWS Region"
 }
 
 variable "aws_key_name" {
   description = "SSH Key Name"
-  default = "slapula"
+}
+
+variable "pcap_s3_bucket" {
+  description = "S3 Bucket for PCAP storage"
+  default = "pcap_bucket"
 }
 
 variable "environment_name" {

@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "pcap_bucket" {
-  bucket = "moloch_${var.environment_name}_pcaps"
+  bucket = "${var.pcap_s3_bucket}_${random_id.bucket_uuid.dec}"
   acl    = "private"
 
   lifecycle_rule {
@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "pcap_bucket" {
   }
 
   tags {
-    Name = "moloch_${var.environment_name}_pcaps"
+    Name = "${var.pcap_s3_bucket}"
     Environment = "${var.environment_name}"
     Role = "storage"
   }
